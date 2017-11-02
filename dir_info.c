@@ -7,13 +7,34 @@
 int main(){
   printf("Statistics for directory: \nFiles: \n");
   DIR * directory = opendir(".");
+
+  //printing all files
   struct dirent * entry = readdir(directory);
-  //char filename[256] = entry->d_name;
   while(entry){ //check for errors
     
     printf("\t%s \n", entry->d_name);
     entry = readdir(directory);
-    //filename = entry->d_name;
+  }
+
+  closedir(directory);
+
+  //printing directories & other files separately
+  directory = opendir(".");
+  printf("Directories: \n");
+  entry = readdir(directory);
+  while(entry && entry->d_type == DT_DIR){
+    printf("\t%s \n", entry->d_name);
+    entry = readdir(directory);
+  }
+
+  closedir(directory);
+  directory = opendir(".");
+
+  printf("Other Files: \n");
+  entry = readdir(directory);
+  while(entry && entry->d_type != DT_DIR){
+    printf("\t%s \n", entry->d_name);
+    entry = readdir(directory);
   }
   
   closedir(directory);
