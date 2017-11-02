@@ -3,6 +3,7 @@
 #include <string.h>
 #include <dirent.h>
 #include <sys/types.h>
+#include <errno.h>
 
 int main(){
   printf("Statistics for directory: \nFiles: \n");
