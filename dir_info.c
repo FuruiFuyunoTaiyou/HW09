@@ -19,18 +19,6 @@ int main(){
   }
   closedir(directory);*/
 
-  /*//finding total size of all files
-  printf("Total directory size: ");
-  int dir_size = 0;
-  directory = opendir(".");
-  entry = readdir(directory);
-  struct stat buff0;
-  stat(entry->d_name
-  while(entry){
-    dir_size += entry->
-  }
-  closedir(directory);*/
-
   //printing directories & other files separately
   printf("Directories: \n");
   DIR * directory = opendir(".");
@@ -51,14 +39,21 @@ int main(){
   entry = readdir(directory);
   buff;
   stat(entry->d_name, &buff);
+  int dir_size = 0;
   while(entry){
     if(!S_ISDIR(buff.st_mode)){
       printf("\t%s \n", entry->d_name);
+    }
+    //adding size of regular files
+    if(S_ISREG(buff.st_mode)){
+      dir_size += buff.st_size;
     }
     entry = readdir(directory);
     stat(entry->d_name, &buff);
   }
   closedir(directory);
+
+  printf("Total size of regular files: %d Bytes \n", dir_size);
 
   return 0;
 }
